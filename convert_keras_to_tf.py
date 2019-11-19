@@ -1,8 +1,13 @@
+import os
+from tensorflow.keras import backend as K
+from tensorflow.python.framework import graph_io
+from tensorflow.python.framework import graph_util
+import tensorflow as tf
+import argparse
+from common import *
 import sys
 sys.path.append('../..')
-from common import *
 
-import argparse
 
 parser = argparse.ArgumentParser(description='Keras to Tensorflow converter')
 parser.add_argument('model_type', type=str,
@@ -20,10 +25,6 @@ model = create_model(conf)
 model.load_weights(args.keras_weight)
 
 # load tensorflow and keras backend
-import tensorflow as tf
-from tensorflow.python.framework import graph_util
-from tensorflow.python.framework import graph_io
-from tensorflow.keras import backend as K
 ksess = K.get_session()
 print(ksess)
 
@@ -34,7 +35,6 @@ graph = ksess.graph
 kgraph = graph.as_graph_def()
 print(kgraph)
 
-import os
 num_output = 1
 prefix = "output"
 pred = [None]*num_output
@@ -52,8 +52,10 @@ constant_graph = graph_util.convert_variables_to_constants(
 output_dir = "./"
 output_graph_name = args.out_prefix+".pb"
 output_text_name = args.out_prefix+".txt"
-graph_io.write_graph(constant_graph, output_dir, output_graph_name, as_text=False)
-graph_io.write_graph(constant_graph, output_dir, output_text_name, as_text=True)
+graph_io.write_graph(constant_graph, output_dir,
+                     output_graph_name, as_text=False)
+graph_io.write_graph(constant_graph, output_dir,
+                     output_text_name, as_text=True)
 print('saved graph .pb at: {0}\nsaved graph .txt at: {1}'.format(
-        os.path.join(output_dir, output_graph_name),
-        os.path.join(output_dir, output_text_name)))
+    os.path.join(output_dir, output_graph_name),
+    os.path.join(output_dir, output_text_name)))

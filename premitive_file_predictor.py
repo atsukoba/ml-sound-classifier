@@ -19,9 +19,9 @@ parser.add_argument('--model-pb-graph', '-pb', default='model/mobilenetv2_fsd201
 args = parser.parse_args()
 
 model = KerasTFGraph(args.model_pb_graph,
-    input_name='import/input_1',
-    keras_learning_phase_name='import/bn_Conv1/keras_learning_phase',
-    output_name='import/output0')
+                     input_name='import/input_1',
+                     keras_learning_phase_name='import/bn_Conv1/keras_learning_phase',
+                     output_name='import/output0')
 
 X = load_sample_as_X(conf, args.audio_file, trim_long_data=False)
 
