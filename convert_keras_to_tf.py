@@ -23,7 +23,7 @@ model.load_weights(args.keras_weight)
 import tensorflow as tf
 from tensorflow.python.framework import graph_util
 from tensorflow.python.framework import graph_io
-from keras import backend as K
+from tensorflow.keras import backend as K
 ksess = K.get_session()
 print(ksess)
 

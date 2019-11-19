@@ -18,7 +18,7 @@ import keras
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import (EarlyStopping, LearningRateScheduler,
                              ModelCheckpoint, TensorBoard, ReduceLROnPlateau)
-from keras import backend as K
+from tensorflow.keras import backend as K
 
 from imblearn.over_sampling import RandomOverSampler
 from imblearn.under_sampling import RandomUnderSampler
